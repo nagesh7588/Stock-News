@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+permissions:
+  id-token: write        # <-- यह line add करें
+  contents: read         # <-- repository files पढ़ने के लिए
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -21,3 +25,4 @@ jobs:
 
       - name: Deploy App
         run: echo "Your deployment commands go here"
+
