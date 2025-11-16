@@ -1,15 +1,15 @@
-
-  name: Azure Login and Deploy
+name: Azure Login and Deploy  # workflow का नाम
 
 on:
   push:
     branches:
       - main
 
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
+jobs:  # ये required property है
+  build-and-deploy:  # job का नाम
+    runs-on: ubuntu-latest  # OS runner
+
+    steps:  # steps array
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -24,6 +24,7 @@ jobs:
 
       - name: Deploy App
         run: echo "Your deployment commands go here"
+
 
 
 
