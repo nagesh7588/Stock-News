@@ -1,29 +1,31 @@
-name: Azure Login and Deploy  # workflow का नाम
+name: Azure Login and Deploy  # Workflow का नाम
 
 on:
   push:
     branches:
       - main
 
-jobs:  # ये required property है
-  build-and-deploy:  # job का नाम
-    runs-on: ubuntu-latest  # OS runner
+jobs:
+  build-and-deploy:  # Job का नाम
+    runs-on: ubuntu-latest  # Runner OS
 
-    steps:  # steps array
+    steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          auth-type: SERVICE_PRINCIPAL
+          auth-type: SERVICE_PRINCIPAL       # Login type
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}  # Service Principal secret
 
       - name: Deploy App
-        run: echo "Your deployment commands go here"
+        run: |
+          echo "Deployment commands go here"
+          # Example: az webapp up --name myapp --resource-group mygroup
 
 
 
