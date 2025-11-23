@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Market News</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Stock/Share Market News (Last 24 Hours)</h1>
+        {% if error %}
+            <div class="error">Error: {{ error }}</div>
+        {% endif %}
+        {% if articles %}
+            <ul class="news-list">
+                {% for article in articles %}
+                <li class="news-item">
+                    <h2><a href="{{ article.url }}" target="_blank">{{ article.title }}</a></h2>
+                    <div class="meta">
+                        <span>{{ article.source }}</span> |
+                        <span>{{ article.date[:10] }} {{ article.date[11:19] }} <em style="color:#888;">{{ article.date_type }}</em></span>
+                    </div>
+                    <p>{{ article.description }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No news articles found for the selected filters.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
