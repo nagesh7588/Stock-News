@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout repo
+      # Step 1: Checkout code
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -20,10 +20,14 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # Step 3: Deploy App to Azure App Service
-      - name: Deploy App to Azure
-        run: |
-          az webapp up --name stock-news-filter-app --resource-group stock-news-rg --location eastus
+      # Step 3: Zip the app files
+      - name: Zip files
+        run: zip -r app.zip .
+
+      # Step 4: Deploy zipped app to Azure Web App
+      - name: Deploy to Azure WebApp
+        run: az webapp deployment source config-zip --resource-group stock-news-rg --name stock-news-filter-app --src app.zip
+
 
   
  
