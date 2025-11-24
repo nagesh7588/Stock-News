@@ -1,4 +1,4 @@
-name: Azure Login and Deploy
+name: Azure WebApp Deploy
 
 on:
   push:
@@ -6,20 +6,23 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Create ZIP
+        run: zip -r app.zip . -x "*.git*"
 
-      - name: Deploy App
-        run: echo "Deployment commands here"
+      - name: Deploy to Azure WebApp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: stock-news-filter-app
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ./app.zip
+
 
 
 
