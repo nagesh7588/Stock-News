@@ -1,4 +1,4 @@
-name: Azure Login and Deploy
+name: Azure WebApp Deploy
 
 on:
   push:
@@ -6,27 +6,32 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout code
+      # Checkout repository
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Login to Azure using Service Principal
+      # Azure login
       - name: Login to Azure
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # Step 3: Zip files for deployment
-      - name: Zip files
+      # Zip the project
+      - name: Create deployment ZIP
         run: zip -r app.zip .
 
-      # Step 4: Deploy to Azure WebApp
-      - name: Deploy to Azure WebApp
-        run: az webapp deployment source config-zip --resource-group stock-news-rg --name stock-news-filter-app --src app.zip
+      # Deploy ZIP to Azure Web App
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: stock-news-filter-app
+          resource-group: stock-news-rg
+          package: app.zip
+
 
 
 
