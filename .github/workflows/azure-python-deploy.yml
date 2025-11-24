@@ -19,6 +19,6 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Deploy App
-        run: echo "Deployment commands here"
+        run: echo "Deployment commands here" 
   
  
