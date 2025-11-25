@@ -16,12 +16,19 @@
             <ul class="news-list">
                 {% for article in articles %}
                 <li class="news-item">
-                    <h2><a href="{{ article.url }}" target="_blank">{{ article.title }}</a></h2>
+                    <h2><a href="{{ article.url or '#' }}" target="_blank">{{ article.title or 'No Title Available' }}</a></h2>
                     <div class="meta">
-                        <span>{{ article.source }}</span> |
-                        <span>{{ article.date[:10] }} {{ article.date[11:19] }} <em style="color:#888;">{{ article.date_type }}</em></span>
+                        <span>{{ article.source or 'Unknown Source' }}</span> |
+                        <span>
+                            {% if article.date %}
+                                {{ article.date[:10] }} {{ article.date[11:19] }}
+                            {% else %}
+                                No date available
+                            {% endif %}
+                            <em style="color:#888;">{{ article.date_type or 'Publish Date' }}</em>
+                        </span>
                     </div>
-                    <p>{{ article.description }}</p>
+                    <p>{{ article.description or 'No description available' }}</p>
                 </li>
                 {% endfor %}
             </ul>

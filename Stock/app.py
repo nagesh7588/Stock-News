@@ -17,14 +17,15 @@ def index():
     """
     Home page route. Fetches and displays filtered stock/share market news.
     """
+    articles = []
+    error = None
+    
     try:
         articles = fetch_stock_news()
     except Exception as e:
-        print(f"Error fetching news: {e}")
+        error = "Unable to fetch news at this time. Please try again later."
         articles = []
-        error = str(e)
-    else:
-        error = None
+    
     return render_template('index.html', articles=articles, error=error)
 
 @app.route('/health')
