@@ -10,25 +10,62 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout code
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Login to Azure using Service Principal
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      # Step 3: Zip the app files
-      - name: Zip files
-        run: zip -r app.zip .
+      - name: Create Resource Group
+        run: |
+          az group create --name stock-news-rg --location "East US"
 
-      # Step 4: Deploy zipped app to Azure Web App
-      - name: Deploy to Azure WebApp
-        run: az webapp deployment source config-zip --resource-group stock-news-rg --name stock-news-filter-app --src app.zip
+      - name: Create App Service Plan
+        run: |
+          az appservice plan create \
+            --name stock-news-plan \
+            --resource-group stock-news-rg \
+            --sku FREE \
+            --is-linux
 
+      - name: Create Web App
+        run: |
+          az webapp create \
+            --name stock-news-filter-app \
+            --resource-group stock-news-rg \
+            --plan stock-news-plan \
+            --runtime "PYTHON:3.12"
 
-  
- 
-    
+      - name: Install dependencies and create deployment package
+        run: |
+          cd Stock
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          zip -r ../app.zip . -x "__pycache__/*" "*.pyc"
+
+      - name: Configure Web App Settings
+        run: |
+          az webapp config appsettings set \
+            --resource-group stock-news-rg \
+            --name stock-news-filter-app \
+            --settings \
+              SCM_DO_BUILD_DURING_DEPLOYMENT=true \
+              ENABLE_ORYX_BUILD=true \
+              PRE_BUILD_SCRIPT_PATH=startup.txt
+
+      - name: Deploy to Azure Web App
+        run: |
+          az webapp deploy \
+            --resource-group stock-news-rg \
+            --name stock-news-filter-app \
+            --src-path app.zip \
+            --type zip

@@ -1,3 +1,1 @@
-# Gunicorn startup for Azure Web App
-# This file tells Azure to use Gunicorn to serve the Flask app
-web: gunicorn app:app
+python startup.py
