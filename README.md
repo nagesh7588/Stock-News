@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Stock/Share Market News Flask App
 
 A Flask web app that fetches and filters stock/share market news from the last 24 hours using NewsAPI.org, with deployment support for Azure Web App.
@@ -62,3 +63,6 @@ A Flask web app that fetches and filters stock/share market news from the last 2
 ---
 
 **Replace all placeholder values (API key, repo URL) with your own.**
+=======
+# Stock-News
+>>>>>>> 323177d59df5442f534ee5cd53a6a26ac84e12bd
