@@ -37,7 +37,7 @@ h1 {
     margin-bottom: 8px;
 }
 .news-item a {
-    color: #2980b9;
+    color: blue;
     text-decoration: none;
 }
 .news-item a:hover {
