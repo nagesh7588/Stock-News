@@ -21,7 +21,7 @@ h1 {
     padding: 0;
 }
 .news-item {
-    border-bottom: 1px solid #e1e4e8;
+    border-bottom: 5px solid #0d67dd;
     padding: 16px 0;
 }
 .news-item:last-child {
