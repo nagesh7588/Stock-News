@@ -1,0 +1,5 @@
+# Gunicorn startup command for Azure Web App
+# Azure will use this file to start the app
+# Rename to startup.txt or add to Azure App Service settings
+
+python -m gunicorn app:app --bind=0.0.0.0 --workers=4

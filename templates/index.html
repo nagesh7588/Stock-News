@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock/Share Market News</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Stock/Share Market News (Last 24 Hours)</h1>
+        {% if news %}
+            <ul class="news-list">
+                {% for item in news %}
+                <li class="news-item">
+                    <h2><a href="{{ item.url }}" target="_blank">{{ item.title }}</a></h2>
+                    <p class="meta">{{ item.date }} | {{ item.source }}</p>
+                    <p>{{ item.description }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No news found for the selected filters.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
