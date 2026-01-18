@@ -22,7 +22,7 @@ h1 {
 }
 .news-item {
     border-bottom: 5px solid #0d67dd;
-    padding: 16px 0;
+    padding: 22px 0;
 }
 .news-item:last-child {
     border-bottom: none;
