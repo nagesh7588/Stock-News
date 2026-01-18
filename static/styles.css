@@ -13,7 +13,7 @@ body {
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 h1 {
-    color: red;
+    color: yellow;
     margin-bottom: 24px;
 }
 .news-list {
@@ -22,7 +22,7 @@ h1 {
 }
 .news-item {
     border-bottom: 5px solid #0d67dd;
-    padding: 16px 0;
+    padding: 22px 0;
 }
 .news-item:last-child {
     border-bottom: none;
