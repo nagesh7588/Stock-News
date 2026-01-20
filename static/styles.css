@@ -13,7 +13,7 @@ body {
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 h1 {
-    color: #1a1a1a;  /* Dark gray - WCAG AAA compliant (13.8:1 contrast) */
+    color: orangered;  /* Dark gray - WCAG AAA compliant (13.8:1 contrast) */
     margin-bottom: 24px;
 }
 .news-list {
@@ -28,7 +28,7 @@ h1 {
     border-bottom: none;
 }
 .news-item h2 {
-    font-size: 1.2em;
+    font-size: 1.9em;
     margin: 0 0 8px 0;
 }
 .news-item .meta {
